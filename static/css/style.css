@@ -1,6 +1,7 @@
 body
 {
   margin: 0 !important;
+  font-family: Century Gothic;
 }
 
 #wrapper
@@ -16,7 +17,7 @@ body
   text-align: center;
   padding-top: 40px;
   font-size: 26px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 #header a
@@ -33,6 +34,12 @@ body
   text-align: center;
 }
 
+#nav a
+{
+  text-decoration: none;
+  color: white;
+}
+
 #nav li
 {
   display: inline-block;
@@ -45,11 +52,116 @@ body
   letter-spacing: 2px;
 }
 
-#content
+article h2
+{
+  margin-top: 0px;
+  padding-top: 0px;
+  color: #353535;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.content
 {
   width: 1000px;
   margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
-  background-color: grey;
+  text-align: center;
+}
+
+article
+{
+  width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-style: outset;
+  border-color: grey;
+  border-width: 2px;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  color: #353535;
+  text-align: left;
+}
+
+
+
+img
+{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.photo
+{
+  width: 250px;
+  height: 180px;
+  margin-right: 40px;
+  margin-top: 5px;
+  float: left;
+}
+
+form
+{
+  width: 400px;
+  padding: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  border-style: outset;
+  border-color: grey;
+  border-width: 2px;
+  border-radius: 7px;
+  color: #353535;
+  letter-spacing: 1px;
+  text-align: left;
+}
+
+form label
+{
+  margin-top: 150px;
+  margin-bottom: 15px;
+}
+
+form input
+{
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+input[type=number]
+{
+  position: relative;
+  left: 130px;
+}
+
+input[type=submit]
+{
+  position: relative;
+  left: 140px;
+}
+
+#inptxt1
+{
+  position: relative;
+  left: 53px;
+}
+
+#inptxt2
+{
+  position: relative;
+  left: 30px;
+}
+
+#inptxt3
+{
+  position: relative;
+  left: 22px;
 }

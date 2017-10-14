@@ -22,23 +22,11 @@
         </ul>
       </div>
       <div class="content">
-     
-     {% for item in fresh_offers %}
-          <article>
-            <div class="photo"><img src="../static/uploads/{{ item[3] }}.png"
-            onerror="this.src='../static/uploads/no_photo.png'" />
-            </div>
-            <h2>{{ item[7] }} ( offer ID: {{ item[3] }} )</h2>
-            <div class="info">
-            Current Price: {{ item[6] }}<br/>
-            Published: {{ item[5] }}<br/>
-            Valid until: {{ item[1] }}<br/>
-            Seller: {{ item[4] }}
-            </div>
-            <p>Description: {{ item[0] }}</p>
-          </article>
-     {% endfor %}
-      
+        <form action="" method="post" name="form">
+          <label for="name">What are you looking for?</label>
+          <input type="text" name="name" /><br/>
+          <input type="submit" name="submit" />
+        </form>
       </div>
     </div>
   </body>

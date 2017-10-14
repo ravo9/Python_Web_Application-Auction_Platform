@@ -8,25 +8,34 @@
   <body>
     <div id="wrapper">
       <div id="header">
-        <a href="#">
+        <a href="/">
           AntiAuction - Buy, sell, compete for the best price!
         </a>
       </div>
       <div id="nav">
         <ul>
-            <li>FRESH OFFERS</li>
-            <li>SEARCH</li>
-            <li>SELL</li>
+            <li><a href="/">FRESH OFFERS</a></li>
+            <li><a href="/search">SEARCH</a></li>
+            <li><a href="/sell">SELL</a></li>
             <li>YOUR ACCOUNT</li>
             <li>LOGOUT</li>
         </ul>
       </div>
-      <div id="content">
-        <form action="" method="post" name="form1">
+      <div class="content">
+        <form action="" method="post" name="form",
+        enctype="multipart/form-data">
           <label for="title">What do you want to sell?</label>
-          <input type="text" name="title" />
+          <input type="text" id="inptxt1" name="title" /><br/>
           <label for="desc">Describe briefly what is that:</label>
-          <input type="text" name="desc" />
+          <input type="text" id="inptxt2" name="desc" /><br/>
+          <label for="photo">Add a photo of the thing you wanna sell:</label>
+          <input type="file" name="photo" /><br/>
+          <label for="endDate">When should the offer expiry?</label>
+          <input type="datetime-local" id="inptxt3" name="endDate" /><br/>
+          <label for="startPrice">What price do you want to start with?</label>
+          <input type="number" name="startPrice" /><br/>
+          <label for="endPrice">What price do you want to end with?</label>
+          <input type="number" name="endPrice" /><br/>
           <input type="submit" name="submit" />
         </form>
       </div>
