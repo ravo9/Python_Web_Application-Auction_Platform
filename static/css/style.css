@@ -136,7 +136,7 @@ form input
   margin-bottom: 15px;
 }
 
-input[type=number]
+.selling_prices
 {
   position: relative;
   left: 130px;

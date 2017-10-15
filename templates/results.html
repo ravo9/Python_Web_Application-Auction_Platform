@@ -1,4 +1,4 @@
-<doctype html>
+<!doctype html>
   
   <head>
     <title>AntiAuction - Buy, sell, compete for the best price!</title>
@@ -22,15 +22,23 @@
         </ul>
       </div>
       <div class="content">
-        <form action="" method="post" name="form">
-          <label for="phrase">What are you looking for?</label>
-          <input type="text" name="phrase" /><br/>
-          <label for="price_min">Minimum price:</label>
-          <input type="number" name="price_min" /><br/>
-          <label for="price_max">Maximum price:</label>
-          <input type="number" name="price_max" /><br/>
-          <input type="submit" name="submit" />
-        </form>
+     
+     {% for item in results %}
+          <article>
+            <div class="photo"><img src="../static/uploads/{{ item[3] }}.png"
+            onerror="this.src='../static/uploads/no_photo.png'" />
+            </div>
+            <h2>{{ item[7] }} ( offer ID: {{ item[3] }} )</h2>
+            <div class="info">
+            Current Price: {{ item[6] }}<br/>
+            Published: {{ item[5] }}<br/>
+            Valid until: {{ item[1] }}<br/>
+            Seller: {{ item[4] }}
+            </div>
+            <p>Description: {{ item[0] }}</p>
+          </article>
+     {% endfor %}
+      
       </div>
     </div>
   </body>

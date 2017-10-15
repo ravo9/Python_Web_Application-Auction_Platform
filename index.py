@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request
 import data
+import searching
 from datetime import datetime
 
 app = Flask(__name__)
@@ -30,7 +31,7 @@ def sell():
     endPrice = request.form['endPrice']
     seller = "Sylvester Omsky"
     photo = request.files['photo']
-    photo.save('static/uploads/'+id+'.png')
+    photo.save('static/uploads/'+id+'.png')  
     offer = {'id': id, 'title': title, 'desc': desc, 'startDate': startDate,
     'endDate': endDate, 'startPrice':startPrice, 'endPrice':endPrice,
     'seller':seller}
@@ -41,8 +42,21 @@ def sell():
 
 @app.route("/search", methods=['POST', 'GET'])
 def search():
-  if request.method =='POST':
-    print "ok"
+  if request.method == 'POST':
+    phrase = request.form['phrase']
+    price_min = request.form['price_min']
+    price_max = request.form['price_max']
+    results_numbers = searching.search_for( phrase, price_min, price_max )
+    results = []
+
+    for x in results_numbers:
+      try:
+        results.append( data.read_offer( x  )  )
+      except:
+        print "reading error"
+
+    return render_template('results.html', results = results)
+
   else:
     return render_template('search.html')
 
