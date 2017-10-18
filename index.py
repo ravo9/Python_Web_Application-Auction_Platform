@@ -1,6 +1,9 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect, session
 import data
 import searching
+import users
+import bcrypt
+from functools import wraps
 from datetime import datetime
 
 app = Flask(__name__)
@@ -39,6 +42,49 @@ def sell():
     return "Done"
   else:
     return render_template('sell.html')
+
+@app.route("/login", methods=['POST', 'GET'])
+def login():
+  if request.method == 'POST':
+    login = request.form['login']
+    password = request.form['password']
+    result = users.check_credentials( login, password )
+    if result == 'true':
+      return 'logged_in!'
+    else:
+      return render_template('login.html')
+  else:
+    return render_template('login.html')
+
+@app.route("/register", methods=['POST', 'GET'])
+def register():
+  if request.method == 'POST':
+    login = request.form['login']
+    password = request.form['password']
+    email = request.form['email']
+    fname = request.form['fname']
+    sname = request.form['sname']
+    phone = request.form['phone']
+    address = request.form['address']
+    town = request.form['town']
+    code = request.form['code']
+    country = request.form['country']
+    user = {'address': address, 'code': code, 'country': country, 'email':
+    email, 'fname': fname, 'login': login, 'password': password, 'phone':
+    phone, 'sname': sname, 'town': town}
+    users.add_user( user )
+    return "Done"
+  else:
+    return render_template('register.html')
+
+@app.route("/account", methods=['POST', 'GET'])
+def account():
+  if request.method == 'POST':
+    return "Ok"
+  else:
+    user = users.read_user( 0 )
+    return render_template('account.html', user=user)
+
 
 @app.route("/search", methods=['POST', 'GET'])
 def search():

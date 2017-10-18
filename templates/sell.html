@@ -7,20 +7,23 @@
   
   <body>
     <div id="wrapper">
+
       <div id="header">
         <a href="/">
           AntiAuction - Buy, sell, compete for the best price!
         </a>
       </div>
+
       <div id="nav">
         <ul>
             <li><a href="/">FRESH OFFERS</a></li>
             <li><a href="/search">SEARCH</a></li>
             <li><a href="/sell">SELL</a></li>
-            <li>YOUR ACCOUNT</li>
-            <li>LOGOUT</li>
+            <li><a href="/account">YOUR ACCOUNT</a></li>
+            <li><a href="/login">LOG IN</a></li>
         </ul>
       </div>
+
       <div class="content">
         <form action="" method="post" name="form",
         enctype="multipart/form-data">
@@ -36,7 +39,7 @@
           <input type="number" class="selling_prices" name="startPrice" /><br/>
           <label for="endPrice">What price do you want to end with?</label>
           <input type="number" class="selling_prices" name="endPrice" /><br/>
-          <input type="submit" name="submit" />
+          <input type="submit" value="Publish" name="submit" />
         </form>
       </div>
     </div>
