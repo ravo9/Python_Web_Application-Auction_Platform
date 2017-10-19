@@ -61,6 +61,12 @@ article h2
   letter-spacing: 1px;
 }
 
+h2
+{
+  font-weight: 200;
+  font-size: 16px;
+}
+
 .content
 {
   width: 1000px;
@@ -88,6 +94,7 @@ article
   letter-spacing: 1px;
   color: #353535;
   text-align: left;
+  font-size: 14px;
 }
 
 img
@@ -138,6 +145,12 @@ form input
 {
   position: relative;
   left: 130px;
+}
+
+section
+{
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 // Not finished class that is going to unify all button classes.

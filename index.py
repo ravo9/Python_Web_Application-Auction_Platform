@@ -111,6 +111,7 @@ def login():
     result = users.check_credentials( login, password )
     if result == 'true':
       session['logged_in'] = True
+      session['user'] = login
       return redirect('/')
     else:
       return render_template('login.html')
@@ -139,7 +140,9 @@ def register():
     email, 'fname': fname, 'login': login, 'password': password, 'phone':
     phone, 'sname': sname, 'town': town}
     users.add_user( user )
-    return "Done"
+    session['logged_in'] = True
+    session['user'] = login
+    return redirect('/')
   else:
     return render_template('register.html')
 
