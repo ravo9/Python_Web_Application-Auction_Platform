@@ -7,22 +7,58 @@ from functools import wraps
 from datetime import datetime
 
 app = Flask(__name__)
+# How should I secure that key?
+app.secret_key = 'abc'
 
 @app.route("/")
-def index():
+@app.route("/page/<num>")
+def index(num=1):
   last_index = data.get_number() - 1
   fresh_offers = []
 
-  for x in range(10):
+  # Page number
+  num = int(num)
+  i = (num * 10) - 10
+
+  for x in range(i, i+10):
     try:
       if (last_index-x) >= 0:
         fresh_offers.append( data.read_offer(last_index-x) )
     except:
       print "reading error"
 
-  return render_template('index.html', fresh_offers = fresh_offers)
+  # Page number has to be incremented, because the button "next page" needs this
+  # number.
+  num +=1
+  return render_template('index.html', fresh_offers = fresh_offers, num = num)
+
+# Doesn't work.
+def check_if_logged_in(f):
+  status = session.get('logged_in', False)
+  if status == True:
+    return "ok"
+  else:
+    return "notok"
+
+# Works but I don't get it.
+# 1. Why does it have such recursive structure. 
+# 2. What about the arguments.
+# 3. What the wraps means?
+# ---
+# Should I add here redirection to the requested page after login?
+# Why the first version doesn't work?
+def check_if_logged(f):
+  @wraps(f)
+  def decorated(*args, **kwargs):
+    status = session.get('logged_in', False)
+    if status == True:
+      return f(*args, **kwargs)
+    else:
+      return redirect('/login')
+  return decorated
 
 @app.route("/sell", methods=['POST', 'GET'])
+@check_if_logged
 def sell():
   if request.method == 'POST':
     id = "AXN000"+str(data.get_number()+1)
@@ -50,7 +86,8 @@ def login():
     password = request.form['password']
     result = users.check_credentials( login, password )
     if result == 'true':
-      return 'logged_in!'
+      session['logged_in'] = True
+      return redirect('/')
     else:
       return render_template('login.html')
   else:
@@ -78,13 +115,13 @@ def register():
     return render_template('register.html')
 
 @app.route("/account", methods=['POST', 'GET'])
+@check_if_logged
 def account():
   if request.method == 'POST':
     return "Ok"
   else:
     user = users.read_user( 0 )
     return render_template('account.html', user=user)
-
 
 @app.route("/search", methods=['POST', 'GET'])
 def search():

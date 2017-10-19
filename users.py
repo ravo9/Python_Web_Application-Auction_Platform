@@ -1,4 +1,5 @@
 import json
+from flask import session, url_for, redirect
 
 def get_number():
   with open('data/users.json') as data_file0:
@@ -25,6 +26,15 @@ def add_user ( user ):
   with open('data/users.json', 'w') as outfile:
     json.dump(users, outfile, sort_keys=True)
   return;
+
+# Should I use a decorator structure if it seems to be simpler now?
+# Should I add here redirection to the requested page after login?
+def check_if_logged_in(f):
+  status = session.get('logged_in', False)
+  if status == True:
+    return "ok"
+  else:
+    return "notok"
 
 def check_credentials ( login, password ):
   with open('data/users.json') as data_file:
