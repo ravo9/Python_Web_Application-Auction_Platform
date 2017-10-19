@@ -28,13 +28,20 @@
         <form action="" method="post" name="form",
         enctype="multipart/form-data">
           <label for="title">What do you want to sell?</label>
-          <input type="text" id="inptxt1" name="title" /><br/>
+          <div class="input_short">
+            <input type="text" name="title" /><br/>
+          </div>
           <label for="desc">Describe briefly what is that:</label>
-          <input type="text" id="inptxt2" name="desc" /><br/>
+          <textarea id="input_wide" rows="5" columns="50" name="desc" /></textarea><br/>
           <label for="photo">Add a photo of the thing you wanna sell:</label>
-          <input type="file" value="Upload photo" name="photo" /><br/>
+          <div id="file_input">
+            Upload photo
+            <input type="file" value="Upload photo" name="photo" /><br/>
+          </div>
           <label for="endDate">When should the offer expiry?</label>
-          <input type="datetime-local" id="inptxt3" name="endDate" /><br/>
+          <div class="input_short">
+            <input type="datetime-local" name="endDate" /><br/>
+          </div>
           <label for="startPrice">What price do you want to start with?</label>
           <input type="number" class="selling_prices" name="startPrice" /><br/>
           <label for="endPrice">What price do you want to end with?</label>

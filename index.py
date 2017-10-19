@@ -90,14 +90,18 @@ def sell():
     'endDate': endDate, 'startPrice':startPrice, 'endPrice':endPrice,
     'seller':seller}
     data.add_offer( offer )
-    return "Done"
-  else:
+    return redirect('/published')
 
+  else:
     # A variable telling the html file if the user is logged in or not (needed
     # to display a correct version of the nav toolbar.
     status = session.get('logged_in', False)
 
     return render_template('sell.html', status=status)
+
+@app.route("/published")
+def published():
+  return render_template('published.html')
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
@@ -112,6 +116,11 @@ def login():
       return render_template('login.html')
   else:
     return render_template('login.html')
+
+@app.route("/logout")
+def log_out():
+  session['logged_in'] = False
+  return render_template('logout.html')
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():

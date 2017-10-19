@@ -1,0 +1,38 @@
+<doctype html>
+  
+  <head>
+    <title>AntiAuction - Buy, sell, compete for the best price!</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+  </head>
+  
+  <body>
+    <div id="wrapper">
+
+      <div id="header">
+        <a href="/">
+          AntiAuction - Buy, sell, compete for the best price!
+        </a>
+      </div>
+     
+      <div id="nav">
+        <ul>
+            <li><a href="/">FRESH OFFERS</a></li>
+            <li><a href="/search">SEARCH</a></li>
+            <li><a href="/sell">SELL</a></li>
+            <li><a href="/account">YOUR ACCOUNT</a></li>
+            <li><a href="/login">LOG OUT</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <form action="/" name="form">
+          <div class="center_button">
+            <h2>The offer has been published successfully!</h2>
+            <input type="submit" value="Main page" name="submit" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+</html>
