@@ -18,7 +18,11 @@
             <li><a href="/search">SEARCH</a></li>
             <li><a href="/sell">SELL</a></li>
             <li><a href="/account">YOUR ACCOUNT</a></li>
+            {% if status == true %}
+            <li><a href="/logout">LOG OUT</a></li>
+            {% else %}
             <li><a href="/login">LOG IN</a></li>
+            {% endif %}
         </ul>
       </div>
       <div class="content">
@@ -29,7 +33,9 @@
           <input type="number" name="price_min" /><br/>
           <label for="price_max">Maximum price:</label>
           <input type="number" name="price_max" /><br/>
-          <input type="submit" value="Search" name="submit" />
+          <div class="center_button">
+            <input type="submit" value="Search" name="submit" />
+          </div>
         </form>
       </div>
     </div>

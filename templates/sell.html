@@ -20,7 +20,7 @@
             <li><a href="/search">SEARCH</a></li>
             <li><a href="/sell">SELL</a></li>
             <li><a href="/account">YOUR ACCOUNT</a></li>
-            <li><a href="/login">LOG IN</a></li>
+            <li><a href="/logout">LOG OUT</a></li>
         </ul>
       </div>
 
@@ -32,14 +32,16 @@
           <label for="desc">Describe briefly what is that:</label>
           <input type="text" id="inptxt2" name="desc" /><br/>
           <label for="photo">Add a photo of the thing you wanna sell:</label>
-          <input type="file" name="photo" /><br/>
+          <input type="file" value="Upload photo" name="photo" /><br/>
           <label for="endDate">When should the offer expiry?</label>
           <input type="datetime-local" id="inptxt3" name="endDate" /><br/>
           <label for="startPrice">What price do you want to start with?</label>
           <input type="number" class="selling_prices" name="startPrice" /><br/>
           <label for="endPrice">What price do you want to end with?</label>
           <input type="number" class="selling_prices" name="endPrice" /><br/>
-          <input type="submit" value="Publish" name="submit" />
+          <div class="center_button">
+            <input type="submit" value="Publish" name="submit" />
+          </div>
         </form>
       </div>
     </div>

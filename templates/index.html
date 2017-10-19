@@ -20,7 +20,11 @@
             <li><a href="/search">SEARCH</a></li>
             <li><a href="/sell">SELL</a></li>
             <li><a href="/account">YOUR ACCOUNT</a></li>
+            {% if status == True %}
+            <li><a href="/logout">LOG OUT</a></li>
+            {% else %}
             <li><a href="/login">LOG IN</a></li>
+            {% endif %}
         </ul>
       </div>
 
@@ -39,9 +43,15 @@
             Seller: {{ item[4] }}
             </div>
             <p>Description: {{ item[0] }}</p>
+            <div id="buy_button">
+              <a href="/buy/{{ item[3] }}">Buy now</a>
+            </div>
           </article>
      {% endfor %}
-      <a href="/page/{{ num }}">Next page</a> 
+
+      {% if last_page == 0 %}
+      <a href="/page/{{ num }}" id="next_page_button">Next page</a> 
+      {% endif %}
       </div>
     </div>
   </body>

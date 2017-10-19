@@ -90,8 +90,6 @@ article
   text-align: left;
 }
 
-
-
 img
 {
   max-width: 100%;
@@ -142,10 +140,47 @@ form input
   left: 130px;
 }
 
-input[type=submit]
+input[type=submit], input[type=file]
 {
-  position: relative;
-  left: 140px;
+  width: 120px;
+  height: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffcc33;
+  letter-spacing: 2px;
+  color: white;
+  padding-top: 0px;
+  border: none;
+  text-transform: uppercase;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#buy_button
+{
+  width: 120px;
+  height: 23px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 7px;
+  background-color: #15e938;
+  letter-spacing: 2px;
+  border: none;
+  text-transform: uppercase;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+#buy_button a
+{
+  text-decoration: none;
+  color: white;
+}
+
+.center_button
+{
+  text-align: center;
 }
 
 #inptxt1
@@ -165,3 +200,5 @@ input[type=submit]
   position: relative;
   left: 22px;
 }
+
+

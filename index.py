@@ -14,12 +14,15 @@ app.secret_key = 'abc'
 @app.route("/page/<num>")
 def index(num=1):
   last_index = data.get_number() - 1
+  if last_index == -1:
+    return "There are no offers yet :( "
+
   fresh_offers = []
 
   # Page number
   num = int(num)
   i = (num * 10) - 10
-
+  
   for x in range(i, i+10):
     try:
       if (last_index-x) >= 0:
@@ -30,7 +33,19 @@ def index(num=1):
   # Page number has to be incremented, because the button "next page" needs this
   # number.
   num +=1
-  return render_template('index.html', fresh_offers = fresh_offers, num = num)
+
+  # A flag indicating that there are no more elements and there's no need to
+  # implement "next page" button anymore.
+  last_page = 0
+  if fresh_offers[-1] == data.read_offer(0):
+    last_page = 1
+  
+  # A variable telling the html file if the user is logged in or not (needed
+  # to display a correct version of the nav toolbar.
+  status = session.get('logged_in', False)
+
+  return render_template('index.html', fresh_offers = fresh_offers, num = num,
+  last_page = last_page, status=status)
 
 # Doesn't work.
 def check_if_logged_in(f):
@@ -45,7 +60,7 @@ def check_if_logged_in(f):
 # 2. What about the arguments.
 # 3. What the wraps means?
 # ---
-# Should I add here redirection to the requested page after login?
+# Should I add here a redirection to the requested page after login?
 # Why the first version doesn't work?
 def check_if_logged(f):
   @wraps(f)
@@ -77,7 +92,12 @@ def sell():
     data.add_offer( offer )
     return "Done"
   else:
-    return render_template('sell.html')
+
+    # A variable telling the html file if the user is logged in or not (needed
+    # to display a correct version of the nav toolbar.
+    status = session.get('logged_in', False)
+
+    return render_template('sell.html', status=status)
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
@@ -137,11 +157,26 @@ def search():
         results.append( data.read_offer( x  )  )
       except:
         print "reading error"
+        
+    # A variable telling the html file if the user is logged in or not (needed
+    # to display a correct version of the nav toolbar.
+    status = session.get('logged_in', False)
 
-    return render_template('results.html', results = results)
+    return render_template('results.html', results = results, status=status)
 
   else:
-    return render_template('search.html')
+
+    # A variable telling the html file if the user is logged in or not (needed
+    # to display a correct version of the nav toolbar.
+    status = session.get('logged_in', False)
+
+    return render_template('search.html', status=status)
+
+# Should I use any other command than POST, GET here?
+@app.route("/buy/<id>")
+def buy(id=None):
+  data.delete_offer(id)
+  return redirect("/")
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)
