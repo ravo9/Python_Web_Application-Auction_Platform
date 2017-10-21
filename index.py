@@ -83,12 +83,12 @@ def sell():
     endDate = request.form['endDate']
     startPrice = request.form['startPrice']
     endPrice = request.form['endPrice']
-    seller = "Sylvester Omsky"
+    seller = session['user']
     photo = request.files['photo']
     photo.save('static/uploads/'+id+'.png')  
     offer = {'id': id, 'title': title, 'desc': desc, 'startDate': startDate,
     'endDate': endDate, 'startPrice':startPrice, 'endPrice':endPrice,
-    'seller':seller}
+    'seller': seller}
     data.add_offer( offer )
     return redirect('/published')
 
@@ -121,6 +121,7 @@ def login():
 @app.route("/logout")
 def log_out():
   session['logged_in'] = False
+  session['user'] = ""
   return render_template('logout.html')
 
 @app.route("/register", methods=['POST', 'GET'])
@@ -150,10 +151,24 @@ def register():
 @check_if_logged
 def account():
   if request.method == 'POST':
-    return "Ok"
+    return redirect('/')
   else:
-    user = users.read_user( 0 )
-    return render_template('account.html', user=user)
+    # User has to be read here to supply proper user data to be displayed.
+    user_id = users.find_user( session['user'] )
+    user = users.read_user ( user_id )
+
+    # Here I am looking for offers that this particular user has published.
+    published_offers_numbers = searching.find_all_published( session['user'] )
+    published_offers = []
+
+    for x in published_offers_numbers:
+      try:
+        published_offers.append( data.read_offer( x  ))
+      except:
+        print x
+
+    return render_template('account.html', user=user,
+    published_offers=published_offers)
 
 @app.route("/search", methods=['POST', 'GET'])
 def search():

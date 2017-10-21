@@ -12,3 +12,14 @@ def search_for( phrase, price_min, price_max ):
     base['offers'][x]['desc']):
       results.append( x )
   return results
+
+
+def find_all_published( user ):
+  results = []
+  with open ('data/offers.json') as data_file:
+    base = json.load(data_file)
+  acc = data.get_number()
+  for x in range( acc ):
+    if (user in base['offers'][x]['seller']):
+      results.append( x )
+  return results

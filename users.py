@@ -10,6 +10,16 @@ def get_number():
     acc += 1
   return acc
 
+def find_user( login ):
+  with open('data/users.json') as data_file:
+    users = json.load(data_file)
+    acc = 0
+    for user in users['users']:
+      if user['login'] == login:
+        return acc
+      acc += 1
+  return -1
+
 def read_user( number ):
   with open('data/users.json') as data_file:
     users = json.load(data_file)

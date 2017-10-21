@@ -48,6 +48,17 @@
 
           <hr>
           <label>Your published offers:</label>
+
+          {% for item in published_offers %}
+          <div class="published_offers">
+            <div class="small_photo"><img src="../static/uploads/{{ item[3] }}.png"
+            onerror="this.src='../static/uploads/no_photo.png'" />
+            </div>
+            <h2>{{ item[7] }} ( offer ID: {{ item[3] }} )</h2>
+            Published: {{ item[5] }}<br/>
+          </div>
+          {% endfor %}
+
           <hr>
           <label>Things you've purchased:</label>
         </form>
