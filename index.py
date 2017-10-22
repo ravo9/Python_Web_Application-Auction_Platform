@@ -1,15 +1,15 @@
 from flask import Flask, render_template, url_for, request, redirect, session
+from functools import wraps
+from datetime import datetime
 import data
 import searching
 import users
 import bcrypt
-from functools import wraps
-from datetime import datetime
 
 app = Flask(__name__)
-# How should I secure that key?
-app.secret_key = 'abc'
+app.secret_key = '93912jijdimd83'
 
+# Main page - 'Fresh offers'
 @app.route("/")
 @app.route("/page/<num>")
 def index(num=1):
@@ -23,6 +23,7 @@ def index(num=1):
   num = int(num)
   i = (num * 10) - 10
   
+  # Looking for (and uploading) the 10 most recent offers 
   for x in range(i, i+10):
     try:
       if (last_index-x) >= 0:
@@ -41,27 +42,14 @@ def index(num=1):
     last_page = 1
   
   # A variable telling the html file if the user is logged in or not (needed
-  # to display a correct version of the nav toolbar.
+  # to display a correct version of the nav toolbar).
   status = session.get('logged_in', False)
 
   return render_template('index.html', fresh_offers = fresh_offers, num = num,
   last_page = last_page, status=status)
 
-# Doesn't work.
-def check_if_logged_in(f):
-  status = session.get('logged_in', False)
-  if status == True:
-    return "ok"
-  else:
-    return "notok"
-
-# Works but I don't get it.
-# 1. Why does it have such recursive structure. 
-# 2. What about the arguments.
-# 3. What the wraps means?
-# ---
-# Should I add here a redirection to the requested page after login?
-# Why the first version doesn't work?
+# A function checking if the user is logged in or not to provide a proper
+# access level.
 def check_if_logged(f):
   @wraps(f)
   def decorated(*args, **kwargs):
@@ -69,14 +57,15 @@ def check_if_logged(f):
     if status == True:
       return f(*args, **kwargs)
     else:
-      return redirect('/login')
+      return redirect('/user/login')
   return decorated
 
-@app.route("/sell", methods=['POST', 'GET'])
+
+@app.route("/offers/sell", methods=['POST', 'GET'])
 @check_if_logged
 def sell():
   if request.method == 'POST':
-    id = "AXN000"+str(data.get_number()+1)
+    id = "AXN000"+str(int(data.read_offer(data.get_number()-1)[3][3:])+1)
     title = request.form['title']
     desc = request.form['desc']
     startDate = datetime.now().strftime("%d.%m.%Y %H:%M")
@@ -90,7 +79,7 @@ def sell():
     'endDate': endDate, 'startPrice':startPrice, 'endPrice':endPrice,
     'seller': seller}
     data.add_offer( offer )
-    return redirect('/published')
+    return redirect('/offers/sell/published')
 
   else:
     # A variable telling the html file if the user is logged in or not (needed
@@ -99,11 +88,13 @@ def sell():
 
     return render_template('sell.html', status=status)
 
-@app.route("/published")
+
+@app.route("/offers/sell/published")
 def published():
   return render_template('published.html')
 
-@app.route("/login", methods=['POST', 'GET'])
+
+@app.route("/user/login", methods=['POST', 'GET'])
 def login():
   if request.method == 'POST':
     login = request.form['login']
@@ -118,13 +109,15 @@ def login():
   else:
     return render_template('login.html')
 
-@app.route("/logout")
+
+@app.route("/user/logout")
 def log_out():
   session['logged_in'] = False
   session['user'] = ""
   return render_template('logout.html')
 
-@app.route("/register", methods=['POST', 'GET'])
+
+@app.route("/user/register", methods=['POST', 'GET'])
 def register():
   if request.method == 'POST':
     login = request.form['login']
@@ -147,7 +140,8 @@ def register():
   else:
     return render_template('register.html')
 
-@app.route("/account", methods=['POST', 'GET'])
+
+@app.route("/user/account", methods=['POST', 'GET'])
 @check_if_logged
 def account():
   if request.method == 'POST':
@@ -157,7 +151,8 @@ def account():
     user_id = users.find_user( session['user'] )
     user = users.read_user ( user_id )
 
-    # Here I am looking for offers that this particular user has published.
+    # Here the function is looking for offers that this particular user has 
+    # published.
     published_offers_numbers = searching.find_all_published( session['user'] )
     published_offers = []
 
@@ -170,7 +165,9 @@ def account():
     return render_template('account.html', user=user,
     published_offers=published_offers)
 
-@app.route("/search", methods=['POST', 'GET'])
+
+# An internal search engine.
+@app.route("/offers/search", methods=['POST', 'GET'])
 def search():
   if request.method == 'POST':
     phrase = request.form['phrase']
@@ -199,11 +196,14 @@ def search():
 
     return render_template('search.html', status=status)
 
-# Should I use any other command than POST, GET here?
-@app.route("/buy/<id>")
+
+@app.route("/offers/buy/<id>")
+@check_if_logged
 def buy(id=None):
+  data.move_to_archive(id)
   data.delete_offer(id)
   return redirect("/")
+
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)

@@ -1,4 +1,4 @@
-<doctype html>
+<!doctype html>
   
   <head>
     <title>AntiAuction - Buy, sell, compete for the best price!</title>
@@ -15,17 +15,19 @@
       <div id="nav">
         <ul>
             <li><a href="/">FRESH OFFERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-            <li><a href="/sell">SELL</a></li>
-            <li><a href="/account">YOUR ACCOUNT</a></li>
+            <li><a href="/offers/search">SEARCH</a></li>
+            <li><a href="/offers/sell">SELL</a></li>
+            <li><a href="/user/account">YOUR ACCOUNT</a></li>
             {% if status == true %}
-            <li><a href="/logout">LOG OUT</a></li>
+            <li><a href="/user/logout">LOG OUT</a></li>
             {% else %}
-            <li><a href="/login">LOG IN</a></li>
+            <li><a href="/user/login">LOG IN</a></li>
             {% endif %}
         </ul>
       </div>
+
       <div class="content">
+
         <form action="" method="post" name="form">
           <label for="phrase">What are you looking for?</label>
           <input type="text" name="phrase" /><br/>
@@ -37,7 +39,9 @@
             <input type="submit" value="Search" name="submit" />
           </div>
         </form>
+
       </div>
+
     </div>
   </body>
 

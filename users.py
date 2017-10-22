@@ -2,6 +2,7 @@ import json
 import bcrypt
 from flask import session, url_for, redirect
 
+# A function returning a total number of users.
 def get_number():
   with open('data/users.json') as data_file0:
     data0 = json.load(data_file0)
@@ -10,6 +11,8 @@ def get_number():
     acc += 1
   return acc
 
+
+# A function that returns a number of a user with given login.
 def find_user( login ):
   with open('data/users.json') as data_file:
     users = json.load(data_file)
@@ -20,6 +23,8 @@ def find_user( login ):
       acc += 1
   return -1
 
+
+# A function that returns a user of a given number.
 def read_user( number ):
   with open('data/users.json') as data_file:
     users = json.load(data_file)
@@ -30,7 +35,7 @@ def read_user( number ):
       user.append(users["users"][number][item])
   return user
 
-# gensalt() is an encrypting function, right?
+
 def add_user ( user ):
   with open ('data/users.json') as data_file:
     users = json.load(data_file)
@@ -41,20 +46,8 @@ def add_user ( user ):
     json.dump(users, outfile, sort_keys=True)
   return;
 
-# Should I use a decorator structure if it seems to be simpler now?
-# Should I add here redirection to the requested page after login?
-def check_if_logged_in(f):
-  status = session.get('logged_in', False)
-  if status == True:
-    return "ok"
-  else:
-    return "notok"
 
-# There is sth I don't understand. Why in decoding function we need to use
-# that 'encode' and why do we need to pass the password from db as the second
-# argument?
-# Why can't we just compare encoded db password with password entered by user,
-# encoded exactly in the same way ( I have checked and it didn't work )???
+# A function checking login credentials.
 def check_credentials ( login, password ):
   with open('data/users.json') as data_file:
     users = json.load(data_file)

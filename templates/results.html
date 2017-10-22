@@ -17,37 +17,45 @@
       <div id="nav">
         <ul>
             <li><a href="/">FRESH OFFERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-            <li><a href="/sell">SELL</a></li>
-            <li><a href="/account">YOUR ACCOUNT</a></li>
-            <li><a href="/login">LOG IN</a></li>
+            <li><a href="/offers/search">SEARCH</a></li>
+            <li><a href="/offers/sell">SELL</a></li>
+            <li><a href="/user/account">YOUR ACCOUNT</a></li>
+            <li><a href="/user/login">LOG IN</a></li>
         </ul>
       </div>
 
-      <div class="content">
-     
-     {% for item in results %}
-          <article>
-            <div class="photo"><img src="../static/uploads/{{ item[3] }}.png"
-            onerror="this.src='../static/uploads/no_photo.png'" />
-            </div>
-            <h2>{{ item[7] }} ( offer ID: {{ item[3] }} )</h2>
-            <div class="info">
-            Current Price: {{ item[6] }}<br/>
-            Published: {{ item[5] }}<br/>
-            Valid until: {{ item[1] }}<br/>
-            Seller: {{ item[4] }}
-            </div>
-            <p>Description: {{ item[0] }}</p>
+      <div class="content"> 
 
-            <div id="buy_button">
-              <a href="/buy/{{ item[3] }}">Buy now</a>
-            </div>
+      {% if results|length == 0 %}
+        <div id="results"> 
+          <br/>
+          <h2>No items have been found :(</h2>
+        </div>
+      {% endif %}
 
-          </article>
-     {% endfor %}
+      {% for item in results %}
+        <article>
+          <div class="photo"><img src="../static/uploads/{{ item[3] }}.png"
+          onerror="this.src='../static/uploads/no_photo.png'" />
+         </div>
+        <h2>{{ item[7] }} ( offer ID: {{ item[3] }} )</h2>
+        <div class="info">
+          Current Price: {{ item[6] }}<br/>
+          Published: {{ item[5] }}<br/>
+          Valid until: {{ item[1] }}<br/>
+          Seller: {{ item[4] }}
+        </div>
+        <p>Description: {{ item[0] }}</p>
+
+        <div id="buy_button">
+          <a href="/offers/buy/{{ item[3] }}">Buy now</a>
+        </div>
+
+        </article>
+      {% endfor %}
       
       </div>
+
     </div>
   </body>
 

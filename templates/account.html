@@ -1,4 +1,4 @@
-<doctype html>
+<!doctype html>
   
   <head>
     <title>AntiAuction - Buy, sell, compete for the best price!</title>
@@ -17,10 +17,10 @@
       <div id="nav">
         <ul>
             <li><a href="/">FRESH OFFERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-            <li><a href="/sell">SELL</a></li>
-            <li><a href="/account">YOUR ACCOUNT</a></li>
-            <li><a href="/logout">LOG OUT</a></li>
+            <li><a href="/offers/search">SEARCH</a></li>
+            <li><a href="/offers/sell">SELL</a></li>
+            <li><a href="/user/account">YOUR ACCOUNT</a></li>
+            <li><a href="/user/logout">LOG OUT</a></li>
         </ul>
       </div>
 
@@ -61,6 +61,17 @@
 
           <hr>
           <label>Things you've purchased:</label>
+
+          {% for item in purchased_items %}
+          <div class="published_offers">
+            <div class="small_photo"><img src="../static/uploads/{{ item[3] }}.png"
+            onerror="this.src='../static/uploads/no_photo.png'" />
+            </div>
+            <h2>{{ item[7] }} ( offer ID: {{ item[3] }} )</h2>
+            Published: {{ item[5] }}<br/>
+          </div>
+          {% endfor %}
+
         </form>
 
         <form action="" name="form2">

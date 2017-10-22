@@ -14,6 +14,7 @@ def search_for( phrase, price_min, price_max ):
   return results
 
 
+# A function that returns numbers of all offers published by a particular user.
 def find_all_published( user ):
   results = []
   with open ('data/offers.json') as data_file:
@@ -23,3 +24,4 @@ def find_all_published( user ):
     if (user in base['offers'][x]['seller']):
       results.append( x )
   return results
+

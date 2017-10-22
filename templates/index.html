@@ -17,13 +17,13 @@
       <div id="nav">
         <ul>
             <li><a href="/">FRESH OFFERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-            <li><a href="/sell">SELL</a></li>
-            <li><a href="/account">YOUR ACCOUNT</a></li>
+            <li><a href="/offers/search">SEARCH</a></li>
+            <li><a href="/offers/sell">SELL</a></li>
+            <li><a href="/user/account">YOUR ACCOUNT</a></li>
             {% if status == True %}
-            <li><a href="/logout">LOG OUT</a></li>
+            <li><a href="/user/logout">LOG OUT</a></li>
             {% else %}
-            <li><a href="/login">LOG IN</a></li>
+            <li><a href="/user/login">LOG IN</a></li>
             {% endif %}
         </ul>
       </div>
@@ -44,15 +44,22 @@
             </div>
             <p>Description: {{ item[0] }}</p>
             <div id="buy_button">
-              <a href="/buy/{{ item[3] }}">Buy now</a>
+              <a href="/offers/buy/{{ item[3] }}">Buy now</a>
             </div>
           </article>
      {% endfor %}
 
       {% if last_page == 0 %}
-      <a href="/page/{{ num }}" id="next_page_button">Next page</a> 
-      {% endif %}
+      <br/>
+      <div id="buy_button">
+        <a href="/page/{{ num }}" >Next page</a> 
       </div>
+      <br/>
+      <br/>
+      {% endif %}
+
+     </div>
+
     </div>
   </body>
 

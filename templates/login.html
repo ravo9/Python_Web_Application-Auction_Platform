@@ -1,4 +1,4 @@
-<doctype html>
+<!doctype html>
   
   <head>
     <title>AntiAuction - Buy, sell, compete for the best price!</title>
@@ -17,14 +17,15 @@
       <div id="nav">
         <ul>
             <li><a href="/">FRESH OFFERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-            <li><a href="/sell">SELL</a></li>
-            <li><a href="/account">YOUR ACCOUNT</a></li>
-            <li><a href="/login">LOG IN</a></li>
+            <li><a href="/offers/search">SEARCH</a></li>
+            <li><a href="/offers/sell">SELL</a></li>
+            <li><a href="/user/account">YOUR ACCOUNT</a></li>
+            <li><a href="/user/login">LOG IN</a></li>
         </ul>
       </div>
 
       <div class="content">
+
         <form action="" method="post" name="form">
           <h2>Please log in to get an access to this function:</h2>
           <label for="login">Login:</label>
@@ -35,14 +36,17 @@
             <input type="submit" value="Log in" name="submit" />
           </div>
         </form>
-        <form action="/register" name="form2">
+
+        <form action="/user/register" name="form2">
           <h2>If you don't have an account yet, you can register very
           quickly:</h2>
           <div class="center_button">
             <input type="submit" value="Register" name="register" />
           </div>
         </form>
+
       </div>
+
     </div>
   </body>
 

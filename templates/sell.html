@@ -17,40 +17,54 @@
       <div id="nav">
         <ul>
             <li><a href="/">FRESH OFFERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-            <li><a href="/sell">SELL</a></li>
-            <li><a href="/account">YOUR ACCOUNT</a></li>
-            <li><a href="/logout">LOG OUT</a></li>
+            <li><a href="/offers/search">SEARCH</a></li>
+            <li><a href="/offers/sell">SELL</a></li>
+            <li><a href="/user/account">YOUR ACCOUNT</a></li>
+            <li><a href="/user/logout">LOG OUT</a></li>
         </ul>
       </div>
 
       <div class="content">
+
         <form action="" method="post" name="form",
         enctype="multipart/form-data">
           <label for="title">What do you want to sell?</label>
+
           <div class="input_short">
             <input type="text" name="title" /><br/>
           </div>
+
           <label for="desc">Describe briefly what is that:</label>
           <textarea id="input_wide" rows="5" columns="50" name="desc" /></textarea><br/>
-          <label for="photo">Add a photo of the thing you wanna sell:</label>
+          <br/>
+          <label>Add a photo of the thing you wanna sell:</label><br/>
+          <label for="photo">
+
           <div id="file_input">
             Upload photo
-            <input type="file" value="Upload photo" name="photo" /><br/>
           </div>
+
+          </label>
+          <input id="photo" type="file" value="Upload photo" name="photo" /><br/>
           <label for="endDate">When should the offer expiry?</label>
+
           <div class="input_short">
             <input type="datetime-local" name="endDate" /><br/>
           </div>
+
           <label for="startPrice">What price do you want to start with?</label>
           <input type="number" class="selling_prices" name="startPrice" /><br/>
           <label for="endPrice">What price do you want to end with?</label>
           <input type="number" class="selling_prices" name="endPrice" /><br/>
+          
           <div class="center_button">
             <input type="submit" value="Publish" name="submit" />
           </div>
+
         </form>
+
       </div>
+
     </div>
   </body>
 
