@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from functools import wraps
 from datetime import datetime
+import ConfigParser
 import data
 import searching
 import users
@@ -8,6 +9,16 @@ import bcrypt
 
 app = Flask(__name__)
 app.secret_key = '93912jijdimd83'
+
+def init(app):
+  config = ConfigParser.ConfigParser()
+  try:
+    config.read("etc/defaults.cfg")
+    app.config['ip_address'] = config.get("config", "ip_address")
+    app.config['port'] = config.get("config", "port")
+  except:
+    print "The config file couldn't be read."
+
 
 # Main page - 'Fresh offers'
 @app.route("/")
@@ -206,5 +217,6 @@ def buy(id=None):
 
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', debug=True)
+  init(app)
+  app.run(host=app.config['ip_address'], port=int(app.config['port']))
 
